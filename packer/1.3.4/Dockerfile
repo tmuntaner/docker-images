@@ -1,4 +1,4 @@
-FROM opensuse/leap:15
+FROM opensuse/leap:15.1
 ENV PACKER_VERSION=1.3.4
 ENV PACKER_SHA256SUM=73074f4fa07fe15b5d65a694ee7afae2d1a64f0287e6b40897adee77a7afc552
 RUN zypper --non-interactive in wget unzip
@@ -9,7 +9,8 @@ RUN sha256sum -c --status packer_${PACKER_VERSION}_SHA256SUMS
 RUN unzip packer_${PACKER_VERSION}_linux_amd64.zip -d /usr/local/bin
 RUN rm -f packer_${PACKER_VERSION}_linux_amd64.zip
 
-FROM opensuse/leap:15
-RUN zypper --non-interactive up
+FROM opensuse/leap:15.1
+RUN zypper --non-interactive in ansible openssh python3-botocore python3-boto3 && \
+    zypper --non-interactive up
 COPY --from=0 /usr/local/bin/packer /usr/local/bin/
 CMD ["/usr/local/bin/packer"]
