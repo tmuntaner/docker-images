@@ -31,10 +31,18 @@ jobs:
           push: true
           tags: tmuntaner/webpack-linode-sync:latest
       - name: Craft CMS nginx
-        id: docker_build
+        id: docker_build_craftcms_nginx
         uses: docker/build-push-action@v2
         with:
           context: ./craftcms-nginx
           platforms: linux/amd64
           push: true
           tags: tmuntaner/craftcms-nginx:latest
+      - name: Craft CMS php-fpm
+        id: docker_build_craftcms_php_fpm
+        uses: docker/build-push-action@v2
+        with:
+          context: ./craftcms-php-fpm
+          platforms: linux/amd64
+          push: true
+          tags: tmuntaner/craftcms-php-fpm:latest
